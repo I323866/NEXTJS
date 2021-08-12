@@ -33,9 +33,23 @@ async function migrate() {
     await query(`
     CREATE TABLE IF NOT EXISTS entries (
       id INT AUTO_INCREMENT PRIMARY KEY,
-      title TEXT NOT NULL,
-      content TEXT NOT NULL,
-      image TEXT,
+      gsbm TEXT, 
+      qxbh TEXT, 
+      jzcbh TEXT, 
+      zcmc TEXT, 
+      ggxh TEXT, 
+      ly TEXT, 
+      yt TEXT, 
+      zt TEXT, 
+      azdd TEXT, 
+      jz TEXT, 
+      zypz TEXT, 
+      hdsj TEXT, 
+      hdfs TEXT, 
+      gsbgjl TEXT, 
+      bz TEXT, 
+      pdqk TEXT, 
+      bq TEXT, 
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at 
         TIMESTAMP 

@@ -12,12 +12,14 @@ const handler: NextApiHandler = async (req, res) => {
     }
     const results = await query(
       `
-      SELECT id, title, content
+      SELECT *
       FROM entries
       WHERE id = ?
     `,
       id
     )
+
+    
 
     return res.json(results[0])
   } catch (e) {
