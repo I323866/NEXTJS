@@ -16,3 +16,17 @@
 /* Stop purging. */
 
 /* Your own custom utilities */
+
+
+td  {
+  border-top: 1px grey solid;
+}
+
+
+.ant-input{
+  border: 1px grey solid;
+}
+
+.text-3xl {
+  font-size: 1.25rem;
+}

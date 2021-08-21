@@ -1,4 +1,6 @@
 import useSWR from 'swr'
+import { useEffect } from "react";
+import Router from "next/router";
 
 function fetcher(url: string) {
   return window.fetch(url).then((res) => res.json())

@@ -3,9 +3,12 @@ import Router, { useRouter } from 'next/router'
 import { Form, Input, Space ,Divider} from 'antd';
 import Button from '@/components/button'
 import ImageControl from '../imagepicker'
+import useUser from '@/lib/useUser';
 
 
 function EntryForm({entry}) {
+  const { user } = useUser({ redirectTo: "/login" });
+
   const [gsbm, setgsbm] = useState('')
   const [qxbh, setqxbh] = useState('')
   const [jzcbh, setjzcbh] = useState('')

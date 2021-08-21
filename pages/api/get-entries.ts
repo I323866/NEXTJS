@@ -8,15 +8,16 @@ const handler: NextApiHandler = async (req, res) => {
       SELECT * FROM entries
       WHERE jzcbh like '%${req.query.keyword}%' 
       OR qxbh like '%${req.query.keyword}%' 
-      ORDER BY id DESC
+      OR bz like '%${req.query.keyword}%' 
+      ORDER BY updated_at DESC
 	    LIMIT 10000
     `)
       return res.json(results)
     } else {
       const results = await query(`
       SELECT * FROM entries
-      ORDER BY id DESC
-      LIMIT 10
+      ORDER BY updated_at DESC
+      LIMIT 15
     `)
       return res.json(results)
     }

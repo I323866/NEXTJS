@@ -15,7 +15,8 @@ function Entries({ entries }) {
     {
       title: '编号',
       dataIndex: 'id',
-      key: 'id'
+      key: 'id',
+      width: '3%'
     },
     {
       title: '归属部门',
@@ -123,7 +124,7 @@ function Entries({ entries }) {
     {
       title: '操作',
       key: 'action',
-      width: 170,
+      width: '8%',
       fixed: 'right',
       ellipsis: true,
       render: (text, record) => (
