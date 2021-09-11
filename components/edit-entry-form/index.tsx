@@ -71,23 +71,8 @@ function EntryForm({entry}) {
     }
   }
   async function submitHandler(e: any) {
-    // e.preventDefault()
     setSubmitting(true)
     try {
-      // let compressedbqzp = "", compressedxlhzp = "", compressedzczp = ""
-      // if (image.length > 0) {
-      //   const bqzp = document.getElementById("bqzp").childNodes[0]
-      //   compressedbqzp = compress(bqzp)
-      // }
-      // if (image1.length > 0) {
-      //   const xlhzp = document.getElementById("xlhzp").childNodes[0]
-      //   compressedxlhzp = compress(xlhzp)
-      // }
-      // if (imagezc.length > 0) {
-      //   const zczp = document.getElementById("zczp").childNodes[0]
-      //   compressedzczp = compress(zczp)
-      // }
-
 
       const res = await fetch('/api/edit-entry', {
         method: 'PATCH',
@@ -97,7 +82,6 @@ function EntryForm({entry}) {
         body: JSON.stringify({
           id: imagepath,
           gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq,
-          // bqzp: image.length > 0 ? compressedbqzp : '',
           bqzp: image.length > 0 ? image[image.length - 1 ].url : '',
           xlhzp: image1.length > 0 ? image1[image1.length - 1 ].url : '',
           zczp: imagezc.length > 0 ? imagezc[imagezc.length - 1 ].url : ''
@@ -111,34 +95,9 @@ function EntryForm({entry}) {
       throw Error(e.message)
     }
   }
-  function compress(base64) {
-
-    // file.src = src   //让该标签加载base64格式的原图
-    // file.onload = function () {    //图片加载完毕后再通过canvas压缩图片，否则图片还没加载完就压缩，结果图片是全黑的
-
-    let canvas = document.createElement('canvas'), //创建一个canvas元素
-      context = canvas.getContext('2d'),    //context相当于画笔，里面有各种可以进行绘图的API
-      imageWidth = base64.width ? base64.width : 400,    //压缩后图片的宽度，这里设置为缩小一半
-      imageHeight = base64.height ? base64.height : 400,    //压缩后图片的高度，这里设置为缩小一半
-      data = ''    //存储压缩后的图片
-    canvas.width = imageWidth    //设置绘图的宽度
-    canvas.height = imageHeight    //设置绘图的高度
-
-    //使用drawImage重新设置img标签中的图片大小，实现压缩。drawImage方法的参数可以自行查阅W3C
-    context.drawImage(base64, 0, 0, imageWidth, imageHeight)
-
-    //使用toDataURL将canvas上的图片转换为base64格式
-    data = canvas.toDataURL('image/jpg')
-
-    //将压缩后的图片显示到页面上的img标签
-    return data
-    // }
-  }
 
   return (
     <div>
-
-
 
       <Form onFinish={submitHandler}
         layout="inline"
@@ -196,12 +155,6 @@ function EntryForm({entry}) {
           <Form.Item label="备注" rules={[{ required: true, message: 'Missing 备注' }]}>
             <Input style={{ width: '100%' }} value={bz} onChange={(e) => setbz(e.target.value)} size="small" />
           </Form.Item>
-          {/* <Form.Item label="盘点情况" rules={[{ required: true, message: 'Missing 盘点情况' }]}>
-          <Input style={{ width: '100%' }} value={pdqk} onChange={(e) => setpdqk(e.target.value)} size="small" />
-        </Form.Item>
-        <Form.Item label="标签" rules={[{ required: true, message: 'Missing 标签' }]}>
-          <Input style={{ width: '100%' }} value={bq} onChange={(e) => setbq(e.target.value)} size="small" />
-        </Form.Item> */}
           <Form.Item label="标签照片" rules={[{ required: true, message: 'Missing 标签照片' }]}>
             <ImageControl id="bqzp" files={image} imagePath={`/${imagepath}/bqzp.jpg`} onChange={(files, type, index) => { setImage(files) }} />
           </Form.Item>

@@ -1,21 +1,53 @@
 import { NextApiHandler } from 'next'
+import moment from 'moment'
 // import Filter from 'bad-words'
 import { query } from '../../lib/db'
 import fs from 'fs'
 // const filter = new Filter()
 
 const handler: NextApiHandler = async (req, res) => {
+  const now =  moment().format("YYYY-MM-DD HH:mm:ss"); 
   const { id, gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq , bqzp, xlhzp, zczp} = req.body
   try {
 
     const results = await query(
       `
       UPDATE entries
-      SET gsbm = ?, qxbh = ?, jzcbh = ?, zcmc = ?, ggxh = ?, ly = ?, yt = ?, zt = ?, azdd = ?, jz = ?, zypz = ?, hdsj = ?, hdfs = ?, gsbgjl = ?, bz = ?, pdqk = ?, bq = ?
+      SET gsbm = ?, qxbh = ?, jzcbh = ?, zcmc = ?, ggxh = ?, ly = ?, yt = ?, zt = ?, azdd = ?, jz = ?, zypz = ?, hdsj = ?, hdfs = ?, gsbgjl = ?, bz = ?, pdqk = ?, bq = ? 
       WHERE id = ?
       `,
       [gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq, id]
     )
+    if (bqzp){
+      await query(
+        `
+        UPDATE entries
+        SET bqzp = ?
+        WHERE id = ?
+        `,
+        [now, id]
+      )
+    }
+    if (xlhzp){
+      await query(
+        `
+        UPDATE entries
+        SET xlhzp = ?
+        WHERE id = ?
+        `,
+        [now, id]
+      )
+    }
+    if (zczp){
+      await query(
+        `
+        UPDATE entries
+        SET zczp = ?
+        WHERE id = ?
+        `,
+        [now, id]
+      )
+    }
     const path = 'public/' + id + '/'
     
     if (!fs.existsSync(path)){

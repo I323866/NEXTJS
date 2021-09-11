@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const Layout = ({ children }) => (
   <>
     <Head>
-      <title>气象中心资产管理系统</title>
+      <title>资产管理系统</title>
     </Head>
     <style jsx global>{`
       *,

@@ -75,13 +75,13 @@ const Header = () => {
         <ul>
           <li>
             <Link href="/">
-              <a>Home</a>
+              <a>主页</a>
             </Link>
           </li>
           {!user?.isLoggedIn && (
             <li>
               <Link href="/login">
-                <a>Login</a>
+                <a>登录</a>
               </Link>
             </li>
           )}
@@ -112,7 +112,7 @@ const Header = () => {
                     router.push("/");
                   }}
                 >
-                  Logout
+                  登出
                 </a>
               </li>
             </>

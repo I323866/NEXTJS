@@ -1,18 +1,20 @@
 import { NextApiHandler } from 'next'
-// import Filter from 'bad-words'
 import { query } from '../../lib/db'
 import fs from 'fs'
+import moment from 'moment'
 // const filter = new Filter()
 import _ from 'lodash'
+const now = moment().format("YYYY-MM-DD HH:mm:ss"); 
+console.log(now)
 const handler: NextApiHandler = async (req, res) => {
-  const { gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq, bqzp, xlhzp, zczp } = req.body
+  const { gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq , bqzp, xlhzp, zczp } = req.body
   try {
     const results = await query(
       `
-      INSERT INTO entries (gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO entries (gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq, bqzp, xlhzp, zczp)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
-      [gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq]
+      [gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq , bqzp ? now : "", xlhzp ? now : "", zczp? now : ""]
     )
   const id = _.get(results , 'insertId')
   const path = 'public/' + id + '/'
