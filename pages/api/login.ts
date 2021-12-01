@@ -18,13 +18,19 @@ export default withSession(async (req, res) => {
     `, [
       username, password]
     )
+    if (results.length > 0){
+      // we check that the user exists on GitHub and store some data in session
+      // const { login, avatar_url: avatarUrl } = await fetchJson(url);
+      const user = { isLoggedIn: true, results };
+      req.session.set("user", user);
+      await req.session.save();
+      res.json(user);
+    }else{
+      res.status(500);
+      res.json("error")
+    }
 
-    // we check that the user exists on GitHub and store some data in session
-    // const { login, avatar_url: avatarUrl } = await fetchJson(url);
-    const user = { isLoggedIn: true, results };
-    req.session.set("user", user);
-    await req.session.save();
-    res.json(user);
+   
   } catch (error) {
     const { response: fetchResponse } = error;
     res.status(fetchResponse?.status || 500).json(error.data);

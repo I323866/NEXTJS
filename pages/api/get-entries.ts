@@ -9,6 +9,13 @@ const handler: NextApiHandler = async (req, res) => {
       WHERE jzcbh like '%${req.query.keyword}%' 
       OR qxbh like '%${req.query.keyword}%' 
       OR bz like '%${req.query.keyword}%' 
+      OR gsbm like '%${req.query.keyword}%' 
+      OR zcmc like '%${req.query.keyword}%' 
+      OR ggxh like '%${req.query.keyword}%' 
+      OR ly like '%${req.query.keyword}%' 
+      OR yt like '%${req.query.keyword}%' 
+      OR azdd like '%${req.query.keyword}%' 
+      OR gsbgjl like '%${req.query.keyword}%' 
       ORDER BY updated_at DESC
 	    LIMIT 10000
     `)
@@ -17,7 +24,6 @@ const handler: NextApiHandler = async (req, res) => {
       const results = await query(`
       SELECT * FROM entries
       ORDER BY updated_at DESC
-      LIMIT 15
     `)
       return res.json(results)
     }

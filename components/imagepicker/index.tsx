@@ -10,8 +10,6 @@ export default function ImageControl(props) {
   if (
     files && files[files.length - 1] && files[files.length - 1]
   ) {
-    // const data1 = compress(files[files.length - 1].url)
-    // console.log(data1)
   }
   if (image) {
     return (

@@ -14,8 +14,6 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(data) {
-    // event.preventDefault();
-
     const body = {
       username: data.username,
       password: data.password,

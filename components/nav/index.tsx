@@ -8,7 +8,7 @@ export default function Nav({ title = '资产管理系统' }) {
     <Container className="py-4">
       <nav>
         <div className="flex justify-between items-center">
-          <img src="/log.png" widht="32" height="32" />
+          <img src="/log.png" width="32" height="32" />
           <Link href="/">
             <a className="font-bold text-3xl">{title}</a>
           </Link>

@@ -6,6 +6,7 @@ import { mutate } from 'swr'
 
 import Button from '@/components/button'
 import { useEffect, useState } from 'react'
+import useUser from '@/lib/useUser';
 
 function Entries({ entries }) {
   const [deleting, setDeleting] = useState(false)
@@ -63,16 +64,6 @@ function Entries({ entries }) {
       dataIndex: 'azdd',
       key: 'azdd'
     },
-    // {
-    //   title: '价值',
-    //   dataIndex: 'jz',
-    //   key: 'jz'
-    // },
-    // {
-    //   title: '主要配置',
-    //   dataIndex: 'zypz',
-    //   key: 'zypz'
-    // },
     {
       title: '获得时间',
       dataIndex: 'hdsj',
@@ -96,31 +87,7 @@ function Entries({ entries }) {
       key: 'bz'
 
     },
-    // {
-    //   title: '标签照片',
-    //   dataIndex: 'bqzp',
-    //   key: 'bqzp'
-    // },
-    // {
-    //   title: '序列号照片',
-    //   dataIndex: 'xlhzp',
-    //   key: 'xlhzp'
-    // },
-    // {
-    //   title: '资产照片',
-    //   dataIndex: 'zczp',
-    //   key: 'zczp'
-    // },
-    // {
-    //   title: '盘点情况',
-    //   dataIndex: 'pdqk',
-    //   key: 'pdqk'
-    // },
-    // {
-    //   title: '标签',
-    //   dataIndex: 'bq',
-    //   key: 'bq'
-    // },
+
     {
       title: '操作',
       key: 'action',
@@ -148,6 +115,17 @@ function Entries({ entries }) {
       ),
     },
   ];
+  const { user } = useUser({ redirectTo: "/login" });
+  let updatedEntries = _.cloneDeep(data)
+  if (user?.isLoggedIn){
+    if ( user?.results[0]?.isAdmin !== "true"){
+        _.remove(updatedEntries,(entry)=>{
+          return _.get(entry , "gsbm") != user.results[0]?.department
+        })
+    }
+  }else{
+    updatedEntries = []
+  }
   async function deleteEntry(record) {
     setDeleting(true)
     let res = await fetch(`/api/delete-entry?id=${record.id}`, { method: 'DELETE' })

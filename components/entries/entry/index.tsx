@@ -49,7 +49,6 @@ export default function Entry(entry) {
       setbz(res.bz)
     })
   }
-  // console.log(entry)
 
   useEffect(() => {
   }, [gsbm, qxbh, jzcbh, zcmc, ggxh, ly, yt, zt, azdd, jz, zypz, hdsj, hdfs, gsbgjl, bz, pdqk, bq])

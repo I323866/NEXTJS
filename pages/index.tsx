@@ -3,14 +3,16 @@ import Nav from '@/components/nav'
 import Container from '@/components/container'
 import Entries from '@/components/entries'
 
+import _ from 'lodash'
 import { useEntries } from '@/lib/swr-hooks'
 import useUser from '@/lib/useUser'
 
 export default function IndexPage() {
+  const { user ,isLoaduser } = useUser({ redirectTo: "/login" });
   const { entries, isLoading } = useEntries()
-  const { user } = useUser({ redirectTo: "/login" });
-  if (isLoading) {
-    console.log(isLoading)
+
+
+  if (isLoading || isLoaduser) {
     return (
       <div>
           <Nav />
@@ -28,12 +30,22 @@ export default function IndexPage() {
     )
   }
 
+  let updatedEntries = _.cloneDeep(entries)
+  if (user?.isLoggedIn){
+    if ( user?.results[0]?.isAdmin !== "true"){
+        _.remove(updatedEntries,(entry)=>{
+          return _.get(entry , "gsbm") != user.results[0]?.department
+        })
+    }
+  }else{
+    updatedEntries = []
+  }
   return (
   
     <div>
         <Nav />
         <Container>
-          <Entries entries={entries} />
+          <Entries entries={updatedEntries} />
         </Container>
     </div>
   )
